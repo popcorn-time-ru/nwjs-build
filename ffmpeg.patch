@@ -1,0 +1,31 @@
+diff --git a/chromium/scripts/build_ffmpeg.py b/chromium/scripts/build_ffmpeg.py
+index fcdba5ab07..085f6c8f6f 100755
+--- a/chromium/scripts/build_ffmpeg.py
++++ b/chromium/scripts/build_ffmpeg.py
+@@ -997,9 +997,10 @@ def ConfigureAndBuild(target_arch, target_os, host_os, host_arch, parallel_jobs,
+ 
+   # Google Chrome & ChromeOS specific configuration.
+   configure_flags['Chrome'].extend([
+-      '--enable-decoder=aac,h264',
+-      '--enable-demuxer=aac',
+-      '--enable-parser=aac,h264',
++      '--enable-nonfree',
++      '--enable-decoder=aac,ac3,aac3,eac3,h264,mp1,mp2,mp3,mpeg4,mpegvideo,msmpeg4v1,msmpeg4v2,msmpeg4v3,hevc,flv,dca,flac',
++      '--enable-demuxer=aac,ac3,h264,eac3,mp3,mp4,m4v,mpegvideo,mpegts,mov,avi,flv,dts,dtshd,vc1,flac',
++      '--enable-parser=aac,ac3,aac3,eac3,h261,h263,h264,mepgvideo,mpeg4video,mpegaudio,dca,hevc,vc1,flac',
+   ])
+ 
+   # Google ChromeOS specific configuration.
+diff --git a/chromium/scripts/generate_gn.py b/chromium/scripts/generate_gn.py
+index 6814adf058..f726226fb1 100755
+--- a/chromium/scripts/generate_gn.py
++++ b/chromium/scripts/generate_gn.py
+@@ -799,7 +799,7 @@ def CheckLicensesForSources(sources, source_dir, print_licenses):
+       continue
+ 
+     print(f'UNEXPECTED LICENSE: {filename}: {licensename}')
+-    return False
++    #return False
+ 
+   return True
+ 
